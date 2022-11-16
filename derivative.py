@@ -13,8 +13,37 @@ def single_derivative(func: str) -> str:
     >>> single_derivative("121")
     '0'
     """
-    if func.isnumeric():
-        return '0'
+    import copy
+    result = ""
+    if "sin" in func:
+        result += "cos"
+        result += func[3::]
+    elif "cos" in func:
+        result+="-sin"
+        result += func[3::]
+    elif "e^" in  func:
+        result +="e^"+func[2::]
+    elif "x^" in func:
+        result += func
+    else:
+        return "0"
+    for i in range(len(copy.deepcopy(result))):
+        if "(" == result[i]:
+            if "-" in result:
+                if "e^" not in result:
+                    result = result.replace(result[1], result[i+1:-2]+"*"+result[1])
+                    return result
+                else:
+                    result = result.replace(result[0], result[i+1:-2]+"*"+result[0])
+                    return result
+            else:
+                if "x^" not in result:
+                    result = result.replace(result[0], result[i+1]+"*"+result[0])
+                    return result
+                else:
+                    result = result.replace(result[0], result[i+1:-1]+"*"+result[0])
+                    result = result[0:i] + result[i::].replace(result[-2], str(int(result[-2])-1))
+                    return result
 
     
 
