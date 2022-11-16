@@ -13,7 +13,10 @@ def single_derivative(func: str) -> str:
     >>> single_derivative("121")
     '0'
     """
-    pass
+    if func.isnumeric():
+        return '0'
+
+    
 
 
 def combine_multipliers(der, others):
@@ -30,7 +33,7 @@ def combine_multipliers(der, others):
     >>> combine_multipliers(found_derivative, other)
     '2'
     """
-    pass
+    return "*".join([der] + others)
 
 
 def derivative_of_product(some_funcs: list) -> str:
@@ -69,3 +72,7 @@ def find_derivative(equation: str) -> str:
         separately_computed.append(derivative_of_product(multipliers))
 
     return " + ".join(separately_computed)
+
+if __name__ == "__main__":
+    import doctest
+    print(doctest.testmod())
